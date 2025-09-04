@@ -1,0 +1,71 @@
+/**1.Fastest Lap per Driver**/
+SELECT "Driver", MIN("LapTime") AS fastest_lap
+FROM f1_lap_data
+WHERE "LapTime" IS NOT NULL AND "Deleted" = FALSE
+GROUP BY "Driver"
+ORDER BY fastest_lap ASC;
+
+/**2.Top 5 Fastest Laps (Overall)**/
+SELECT "Driver", "LapNumber", "LapTime"
+FROM f1_lap_data
+WHERE "LapTime" IS NOT NULL AND "Deleted" = FALSE
+ORDER BY "LapTime" ASC
+LIMIT 5;
+
+
+/**3.Average Lap Time per Team**/
+SELECT "Team", AVG("LapTime") AS avg_lap_time
+FROM f1_lap_data
+WHERE "LapTime" IS NOT NULL AND "Deleted" = FALSE
+GROUP BY "Team"
+ORDER BY avg_lap_time ASC;
+
+
+/**4.Compound Usage Distribution**/
+SELECT "Compound", COUNT(*) AS laps_count
+FROM f1_lap_data
+WHERE "Deleted" = FALSE
+GROUP BY "Compound"
+ORDER BY laps_count DESC;
+
+/**5. Stint Analysis (laps per stint by driver)**/
+SELECT "Driver", "Stint", COUNT(*) AS laps_in_stint
+FROM f1_lap_data
+WHERE "Deleted" = FALSE
+GROUP BY "Driver", "Stint"
+ORDER BY "Driver", "Stint";
+
+/**6. Speed Trap Leaderboard**/
+SELECT "Driver", MAX("SpeedST") AS max_speed
+FROM f1_lap_data
+WHERE "SpeedST" IS NOT NULL AND "Deleted" = FALSE
+GROUP BY "Driver"
+ORDER BY max_speed DESC
+LIMIT 10;
+
+/**7. Personal Best Laps**/
+SELECT "Driver", "LapNumber", "LapTime"
+FROM f1_lap_data
+WHERE "IsPersonalBest" = TRUE AND "Deleted" = FALSE
+ORDER BY "LapTime" ASC;
+
+/**8. Pit Stop Count per Driver**/
+SELECT "Driver", COUNT(*) AS pit_stops
+FROM f1_lap_data
+WHERE "PitInTime" IS NOT NULL OR "PitOutTime" IS NOT NULL
+GROUP BY "Driver"
+ORDER BY pit_stops DESC;
+
+/**9. Tyre Life Analysis**/
+SELECT "Driver", "Compound", AVG("TyreLife") AS avg_tyre_life
+FROM f1_lap_data
+WHERE "TyreLife" IS NOT NULL AND "Deleted" = FALSE
+GROUP BY "Driver", "Compound"
+ORDER BY avg_tyre_life DESC;
+
+/**10. Track Status Impact**/
+SELECT "TrackStatus", AVG("LapTime") AS avg_lap_time, COUNT(*) AS lap_count
+FROM f1_lap_data
+WHERE "LapTime" IS NOT NULL AND "Deleted" = FALSE
+GROUP BY "TrackStatus"
+ORDER BY avg_lap_time;
