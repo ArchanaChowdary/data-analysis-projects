@@ -1,0 +1,40 @@
+/** 1.Top Artists by Followers **/
+SELECT "artist_name", "followers"
+FROM "spotify_artists"
+ORDER BY "followers" DESC
+LIMIT 10;
+
+/**2.Top Artists by Popularity**/
+SELECT "artist_name", "popularity"
+FROM "spotify_artists"
+ORDER BY "popularity" DESC
+LIMIT 10;
+
+/**3.Find all artists with "Singh" in their name**/
+SELECT "artist_name", "followers", "popularity"
+FROM "spotify_artists"
+WHERE "artist_name" ILIKE '%Singh%'
+ORDER BY "followers" DESC;
+
+/**4.Search for a specific artist by exact name**/
+SELECT * 
+FROM "spotify_artists"
+WHERE "artist_name" = 'Arijit Singh';
+
+/**5.Compare followers vs popularity**/
+SELECT "artist_name", "followers", "popularity"
+FROM "spotify_artists"
+ORDER BY "followers" DESC
+LIMIT 20;
+
+/**Top 20 most-followed artists**/
+SELECT "artist_name", "followers"
+FROM "spotify_artists"
+ORDER BY "followers" DESC
+LIMIT 20;
+
+/**Top 20 most popular artists**/
+SELECT "artist_name", "popularity"
+FROM "spotify_artists"
+ORDER BY "popularity" DESC
+LIMIT 20;
