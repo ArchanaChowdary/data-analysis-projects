@@ -1,0 +1,44 @@
+/**1.Total Sales**/
+SELECT SUM("Order_Value_INR") AS total_sales
+FROM ecommerce_data;
+
+/**2. Average Order Value**/
+SELECT AVG("Order_Value_INR") AS avg_order_value
+FROM ecommerce_data;
+
+/**3. Total Orders per Customer**/
+SELECT "Customer_ID", COUNT(*) AS total_orders
+FROM ecommerce_data
+GROUP BY "Customer_ID"
+ORDER BY total_orders DESC;
+
+/**4. Orders by Platform**/
+SELECT "Platform", COUNT(*) AS num_orders
+FROM ecommerce_data
+GROUP BY "Platform"
+ORDER BY num_orders DESC;
+
+/**5. Average Delivery Time**/
+SELECT AVG("Delivery_Time_Minutes") AS avg_delivery_time
+FROM ecommerce_data;
+
+/**6. Orders by Product Category**/
+SELECT "Product_Category", COUNT(*) AS num_orders
+FROM ecommerce_data
+GROUP BY "Product_Category"
+ORDER BY num_orders DESC;
+
+/**7. Average Service Rating per Platform**/
+SELECT "Platform", AVG("Service_Rating") AS avg_service_rating
+FROM ecommerce_data
+GROUP BY "Platform"
+ORDER BY avg_service_rating DESC;
+
+/**8. Total Refunds Requested**/
+SELECT COUNT(*) AS total_refunds
+FROM ecommerce_data
+WHERE "Refund_Requested" = 'Yes';
+
+/**9. Average Delivery Delay**/
+SELECT SUM(CAST("Order_Value_INR" AS NUMERIC)) AS total_sales
+FROM ecommerce_data;
