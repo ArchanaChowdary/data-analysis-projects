@@ -1,0 +1,56 @@
+/**1.Total Sales**/
+SELECT SUM("SALES") AS total_sales
+FROM sales_data;
+
+/**2.Total Quantity Ordered**/
+SELECT SUM("QUANTITYORDERED") AS total_quantity
+FROM sales_data;
+
+/**3.Total Sales by Country**/
+SELECT "COUNTRY", SUM("SALES") AS total_sales
+FROM sales_data
+GROUP BY "COUNTRY"
+ORDER BY total_sales DESC;
+
+/**4.Total Sales by Product Line**/
+SELECT "PRODUCTLINE", SUM("SALES") AS total_sales
+FROM sales_data
+GROUP BY "PRODUCTLINE"
+ORDER BY total_sales DESC;
+
+
+/**5.Top 10 Customers by Sales**/
+SELECT "CUSTOMERNAME", SUM("SALES") AS total_sales
+FROM sales_data
+GROUP BY "CUSTOMERNAME"
+ORDER BY total_sales DESC
+LIMIT 10;
+
+/**6.Monthly Sales Trend**/
+SELECT "YEAR_ID", "MONTH_ID", SUM("SALES") AS monthly_sales
+FROM sales_data
+GROUP BY "YEAR_ID", "MONTH_ID"
+ORDER BY "YEAR_ID", "MONTH_ID";
+
+/**7.Sales vs Quantity Scatter**/
+SELECT "QUANTITYORDERED", "SALES"
+FROM sales_data;
+
+/**8.Sales by Order Status**/
+SELECT "STATUS", SUM("SALES") AS total_sales
+FROM sales_data
+GROUP BY "STATUS"
+ORDER BY total_sales DESC;
+
+/**9.Top Products by Sales**/
+SELECT "PRODUCTCODE", "PRODUCTLINE", SUM("SALES") AS total_sales
+FROM sales_data
+GROUP BY "PRODUCTCODE", "PRODUCTLINE"
+ORDER BY total_sales DESC
+LIMIT 10;
+
+/**10.Sales by Deal Size**/
+SELECT "DEALSIZE", SUM("SALES") AS total_sales
+FROM sales_data
+GROUP BY "DEALSIZE"
+ORDER BY total_sales DESC;
