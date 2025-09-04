@@ -1,0 +1,68 @@
+/**1.Top 10 Highest Rated Movies**/
+SELECT "movie_title", "genres", "imdb_score", "title_year"
+FROM movies_data
+WHERE "imdb_score" IS NOT NULL
+ORDER BY "imdb_score" DESC
+LIMIT 10;
+
+/**2. Average IMDb score by genre**/
+SELECT "genres", ROUND(AVG("imdb_score")::numeric, 2) AS avg_imdb_score
+FROM movies_data
+WHERE "imdb_score" IS NOT NULL
+GROUP BY "genres"
+ORDER BY avg_imdb_score DESC;
+
+/**3. Number of movies per director**/
+SELECT "director_name", COUNT(*) AS num_movies
+FROM movies_data
+GROUP BY "director_name"
+ORDER BY num_movies DESC
+LIMIT 10;
+
+/**4. Top 10 movies by gross revenue**/
+SELECT "movie_title", "gross", "title_year"
+FROM movies_data
+WHERE "gross" IS NOT NULL
+ORDER BY "gross" DESC
+LIMIT 10;
+
+/**5. Average gross revenue by year**/
+SELECT "title_year", ROUND(AVG("gross")::numeric, 2) AS avg_gross
+FROM movies_data
+WHERE "gross" IS NOT NULL
+GROUP BY "title_year"
+ORDER BY "title_year";
+
+/**6. Top 10 actors by total Facebook likes**/
+SELECT "actor_1_name", SUM("actor_1_facebook_likes") AS total_likes
+FROM movies_data
+GROUP BY "actor_1_name"
+ORDER BY total_likes DESC
+LIMIT 10;
+
+/**7. Movies count by content rating**/
+SELECT "content_rating", COUNT(*) AS num_movies
+FROM movies_data
+GROUP BY "content_rating"
+ORDER BY num_movies DESC;
+
+/**8. Average duration by genre**/
+SELECT "genres", ROUND(AVG("duration")::numeric, 2) AS avg_duration
+FROM movies_data
+WHERE "duration" IS NOT NULL
+GROUP BY "genres"
+ORDER BY avg_duration DESC;
+
+/**9. Top 10 movies by number of voted users**/
+SELECT "movie_title", "num_voted_users", "imdb_score"
+FROM movies_data
+WHERE "num_voted_users" IS NOT NULL
+ORDER BY "num_voted_users" DESC
+LIMIT 10;
+
+/**10. Correlation example – average IMDb score by language**/
+SELECT "language", ROUND(AVG("imdb_score")::numeric, 2) AS avg_imdb_score
+FROM movies_data
+WHERE "imdb_score" IS NOT NULL
+GROUP BY "language"
+ORDER BY avg_imdb_score DESC;
