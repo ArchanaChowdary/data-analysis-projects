@@ -1,0 +1,54 @@
+/**1.Count total users**/
+SELECT COUNT(*) AS total_users FROM smartwatch_data;
+
+/**2.Activity Level Distribution**/
+SELECT activity_level, COUNT(*) AS count, 
+       ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER(),2) AS percentage
+FROM smartwatch_data
+GROUP BY activity_level
+ORDER BY count DESC;
+
+/**3.Stress Level Distribution**/
+SELECT stress_level, COUNT(*) AS count, 
+       ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER(),2) AS percentage
+FROM smartwatch_data
+GROUP BY stress_level
+ORDER BY count DESC;
+
+/**4.Top 5 users by step count**/
+SELECT user_id, step_count
+FROM smartwatch_data
+ORDER BY step_count DESC
+LIMIT 5;
+
+/**5.Bottom 5 users by sleep duration**/
+SELECT user_id, sleep_duration_hours
+FROM smartwatch_data
+ORDER BY sleep_duration_hours ASC
+LIMIT 5;
+
+/**6.Average heart rate by activity level**/
+SELECT activity_level, 
+       ROUND(AVG(heart_rate_bpm)::numeric, 2) AS avg_heart_rate
+FROM smartwatch_data
+GROUP BY activity_level
+ORDER BY avg_heart_rate DESC;
+
+/**7.Average sleep duration by stress level**/
+SELECT stress_level, 
+       ROUND(AVG(sleep_duration_hours)::numeric, 2) AS avg_sleep_hours
+FROM smartwatch_data
+GROUP BY stress_level
+ORDER BY avg_sleep_hours DESC;
+
+/**8.Users with heart rate above 100 bpm**/
+SELECT user_id, heart_rate_bpm
+FROM smartwatch_data
+WHERE heart_rate_bpm > 100
+ORDER BY heart_rate_bpm DESC;
+
+/**9.Users with sleep duration < 5 hours**/
+SELECT user_id, sleep_duration_hours
+FROM smartwatch_data
+WHERE sleep_duration_hours < 5
+ORDER BY sleep_duration_hours ASC;
