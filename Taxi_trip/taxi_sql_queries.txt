@@ -1,0 +1,64 @@
+/**1. Count trips per vendor **/
+SELECT "VendorID", COUNT(*) AS "num_trips"
+FROM "taxi_trips"
+GROUP BY "VendorID"
+ORDER BY "num_trips" DESC;
+
+/**2.Total fare collected per vendor**/
+SELECT "VendorID", SUM("fare_amount") AS "total_fare"
+FROM "taxi_trips"
+GROUP BY "VendorID"
+ORDER BY "total_fare" DESC;
+
+/**3.Average trip distance per vendor**/
+SELECT "VendorID", AVG("trip_distance") AS "avg_distance"
+FROM "taxi_trips"
+GROUP BY "VendorID"
+ORDER BY "avg_distance" DESC;
+
+/**4.Trips with more than 2 passengers**/
+SELECT *
+FROM "taxi_trips"
+WHERE "passenger_count" > 2
+ORDER BY "trip_distance" DESC;
+
+/**5.Top 10 longest trips**/
+SELECT *
+FROM "taxi_trips"
+ORDER BY "trip_distance" DESC
+LIMIT 10;
+
+/**	6.Peak pickup hour**/
+SELECT EXTRACT(HOUR FROM "tpep_pickup_datetime") AS "pickup_hour",
+       COUNT(*) AS "num_trips"
+FROM "taxi_trips"
+GROUP BY "pickup_hour"
+ORDER BY "num_trips" DESC;
+
+/**7.Average tip per payment type**/
+SELECT "payment_type", AVG("tip_amount") AS "avg_tip"
+FROM "taxi_trips"
+GROUP BY "payment_type"
+ORDER BY "avg_tip" DESC;
+
+/**8.Trips with congestion surcharge applied**/
+SELECT *
+FROM "taxi_trips"
+WHERE "congestion_surcharge" > 0
+ORDER BY "total_amount" DESC;
+
+/**9.Average total amount per pickup location**/
+SELECT "PULocationID", AVG("total_amount") AS "avg_total"
+FROM "taxi_trips"
+GROUP BY "PULocationID"
+ORDER BY "avg_total" DESC;
+
+/**10.Summary statistics for fares and tips**/
+SELECT 
+    MIN("fare_amount") AS "min_fare",
+    MAX("fare_amount") AS "max_fare",
+    AVG("fare_amount") AS "avg_fare",
+    MIN("tip_amount") AS "min_tip",
+    MAX("tip_amount") AS "max_tip",
+    AVG("tip_amount") AS "avg_tip"
+FROM "taxi_trips";
