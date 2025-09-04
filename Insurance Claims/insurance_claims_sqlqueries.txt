@@ -1,0 +1,117 @@
+/**1. Total Number of Claims**/
+SELECT COUNT(*) AS total_claims
+FROM insurance_claims;
+
+/**2. Claims by Gender**/
+SELECT insured_sex, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY insured_sex
+ORDER BY num_claims DESC;
+
+/**3. Average Age of Policyholders**/
+SELECT AVG(age) AS avg_age
+FROM insurance_claims;
+
+/**4. Average Total Claim Amount by Gender**/
+SELECT insured_sex, AVG(total_claim_amount) AS avg_claim
+FROM insurance_claims
+GROUP BY insured_sex
+ORDER BY avg_claim DESC;
+
+/**5. Top 10 Policies by Total Claim Amount**/
+SELECT policy_number, SUM(total_claim_amount) AS total_claim
+FROM insurance_claims
+GROUP BY policy_number
+ORDER BY total_claim DESC
+LIMIT 10;
+
+/**6. Claims by Policy State**/
+SELECT policy_state, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY policy_state
+ORDER BY num_claims DESC;
+
+/**7. Claims by Policy Type**/
+SELECT policy_csl, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY policy_csl
+ORDER BY num_claims DESC;
+
+/**8. High Value Claims**/
+SELECT *
+FROM insurance_claims
+WHERE total_claim_amount > 10000
+ORDER BY total_claim_amount DESC;
+
+/**9. Claims by Incident Type**/
+SELECT incident_type, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY incident_type
+ORDER BY num_claims DESC;
+
+/**10. Claims by Incident Severity**/
+SELECT incident_severity, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY incident_severity
+ORDER BY num_claims DESC;
+
+/**11. Average Total Claim by Policy Annual Premium**/
+SELECT policy_annual_premium, AVG(total_claim_amount) AS avg_claim
+FROM insurance_claims
+GROUP BY policy_annual_premium
+ORDER BY avg_claim DESC;
+
+/**12. Claims by Auto Make**/
+SELECT auto_make, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY auto_make
+ORDER BY num_claims DESC;
+
+/**13. Claims by Auto Year**/
+SELECT auto_year, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY auto_year
+ORDER BY auto_year;
+
+/**14. Number of Claims by Incident Hour**/
+SELECT incident_hour_of_the_day, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY incident_hour_of_the_day
+ORDER BY incident_hour_of_the_day;
+
+/**15. Fraud Reported Count**/
+SELECT fraud_reported, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY fraud_reported
+ORDER BY num_claims DESC;
+
+/**16. Claims by Education Level**/
+SELECT insured_education_level, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY insured_education_level
+ORDER BY num_claims DESC;
+
+/**17. Claims with Property Damage**/
+SELECT property_damage, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY property_damage
+ORDER BY num_claims DESC;
+
+/**18. Average Injury, Vehicle, and Property Claim Amounts**/
+SELECT 
+    AVG(injury_claim) AS avg_injury_claim,
+    AVG(vehicle_claim) AS avg_vehicle_claim,
+    AVG(property_claim) AS avg_property_claim
+FROM insurance_claims;
+
+/**19. Claims by Number of Vehicles Involved**/
+SELECT number_of_vehicles_involved, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY number_of_vehicles_involved
+ORDER BY number_of_vehicles_involved;
+
+/**20. Claims by Incident State**/
+SELECT incident_state, COUNT(*) AS num_claims
+FROM insurance_claims
+GROUP BY incident_state
+ORDER BY num_claims DESC;
